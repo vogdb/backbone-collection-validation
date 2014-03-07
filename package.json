@@ -1,0 +1,20 @@
+{
+  "name": "backbone-collection-validation",
+  "version": "0.0.1",
+  "description": "Adds `validate` method to backbone's collection",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Sanin Aleksey aka vogdb",
+  "dependencies": {
+    "jquery": "~1.8",
+    "backbone": "~1.0.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt": "~0.4.1",
+    "grunt-mocha-test": "~0.9.4"
+  }
+}
