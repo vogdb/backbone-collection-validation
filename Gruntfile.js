@@ -22,6 +22,12 @@ module.exports = function (grunt) {
       dist: {
         options: {
           reporter: 'spec'
+          ,require: [
+            function(){Backbone = require('backbone')}
+            ,function(){_ = require('backbone/node_modules/underscore')}
+            ,function(){fs = require('fs')}
+            ,'./src/collection-validation-simple.js'
+          ]
         }
         ,src: 'test/**/*.js'
       }

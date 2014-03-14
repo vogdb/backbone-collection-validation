@@ -6,7 +6,7 @@ describe('white box tests', function () {
       validate: function () {
         var nonExistIds = []
         this.forEach(function (model) {
-          var friends = model.friends
+          var friends = model.get('friends')
           if (friends && friends.length) {
             for (var i = friends.length - 1; i >= 0; i--) {
               if (!this.get(friends[i])) {
@@ -27,36 +27,30 @@ describe('white box tests', function () {
   })
 
   it('should fail validation', function (done) {
-    this.collection.url = 'data/invalid.json'
-    this.collection.on("invalid", function (error) {
-      console.log(error)
-      done()
-    })
-    this.collection.fetch({
-      validate: true
-    })
+    fs.readFile(
+      './test/data/invalid.json'
+      ,{encoding: 'utf8'}
+      ,function (err, models) {
+        this.collection.on("invalid", function (collection, error) {
+          console.log(error)
+          done()
+        })
+        this.collection.set(JSON.parse(models), {validate: true})
+      }.bind(this)
+    )
   })
 
   it('should pass validation', function (done) {
-    var validDataUrl = 'data/valid.json'
-    Backbone.ajax({
-      dataType: 'json',
-      url: validDataUrl,
-      success: function (persons) {
-        this.collection.url = validDataUrl
-        this.collection.fetch({
-          success: function (collection) {
-            //here we can't rely just on `success` callback because it will be
-            //launched even if all items of collection are invalid. In this case
-            //the collection parameter will be just an empty array. So if all
-            //items of fetched collection are present then this test is passed.
-            if (persons.length === collection.length) {
-              done()
-            }
-          },
-          validate: true
-        })
+    fs.readFile(
+      './test/data/valid.json'
+      ,{encoding: 'utf8'}
+      ,function (err, models) {
+        models = JSON.parse(models)
+        this.collection.set(models, {validate: true})
+        if (models.length === this.collection.length) {
+          done()
+        }
       }.bind(this)
-    })
+    )
   })
 })
