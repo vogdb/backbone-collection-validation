@@ -3,9 +3,9 @@ describe('white box tests', function () {
 
   before(function () {
     Collection = Backbone.Collection.extend({
-      validate: function () {
+      validate: function (collection) {
         var nonExistIds = []
-        this.forEach(function (model) {
+        _.forEach(collection, function (model) {
           var friends = model.get('friends')
           if (friends && friends.length) {
             for (var i = friends.length - 1; i >= 0; i--) {
