@@ -12,8 +12,12 @@ module.exports = function (grunt) {
       options:{
         banner: '<%= banner %>'
       }
-      ,dist: {
-        src: ['src/collection-validation.js']
+      ,simple: {
+        src: ['src/wrappers/prefix.js', 'src/collection-validation-simple.js', 'src/wrappers/suffix.js']
+        ,dest: 'dist/<%= pkg.name %>.js'
+      }
+      ,advanced: {
+        src: ['src/wrappers/prefix.js', 'src/collection-validation-advanced.js', 'src/wrappers/suffix.js']
         ,dest: 'dist/<%= pkg.name %>.js'
       }
     }
@@ -26,7 +30,7 @@ module.exports = function (grunt) {
             function(){Backbone = require('backbone')}
             ,function(){_ = require('backbone/node_modules/underscore')}
             ,function(){fs = require('fs')}
-            ,'./src/collection-validation-simple.js'
+            ,'./dist/<%= pkg.name %>.js'
           ]
         }
         ,src: 'test/**/*.js'
@@ -38,6 +42,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat')
   grunt.loadNpmTasks('grunt-mocha-test')
 
-  grunt.registerTask('default', ['mochaTest', 'concat'])
+  grunt.registerTask('default', ['concat:advanced', 'mochaTest'])
 
 }
