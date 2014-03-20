@@ -1,7 +1,7 @@
 //This implementation is called advanced because it
 // * doesn't allow to set invalid models into collection.
 
-var parentSet = Backbone.Collection.prototype.set
+var parentSet = Backbone.Collection.prototype.set;
 
 Backbone.Collection.prototype.set = function (models, options) {
   if (!options || !options.validate) {
@@ -25,7 +25,7 @@ Backbone.Collection.prototype.set = function (models, options) {
 
     this.reset(exModels);
     if (typeof exSilent === 'undefined') {
-      delete options.silent
+      delete options.silent;
     } else {
       options.silent = exSilent;
     }
