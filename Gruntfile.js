@@ -6,7 +6,8 @@ module.exports = function (grunt) {
 
     ,banner: '/*!\n <%= pkg.title || pkg.name %> - v<%= pkg.version %> - '
       + '<%= grunt.template.today("yyyy-mm-dd") %>\n'
-      + ' Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n*/\n'
+      + ' Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n'
+      + ' Licensed <%= pkg.license %>\n*/\n'
 
     ,concat: {
       options:{
@@ -37,11 +38,23 @@ module.exports = function (grunt) {
       }
     }
 
+    ,uglify: {
+      options:{
+        banner: '<%= banner %>'
+      }
+      ,dist: {
+        files: {
+          'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
+        }
+      }
+    }
+
   })
 
   grunt.loadNpmTasks('grunt-contrib-concat')
   grunt.loadNpmTasks('grunt-mocha-test')
+  grunt.loadNpmTasks('grunt-contrib-uglify')
 
-  grunt.registerTask('default', ['concat:advanced', 'mochaTest'])
+  grunt.registerTask('default', ['concat:advanced', 'mochaTest', 'uglify'])
 
 }
