@@ -31,11 +31,16 @@ describe('white box tests', function () {
       './test/data/invalid.json'
       ,{encoding: 'utf8'}
       ,function (err, models) {
+        var originalNumber = this.collection.length;
         this.collection.on("invalid", function (collection, error) {
-
-          console.log(error);
+          var message = 'No models should be added in case of failed validation';
+          assert(error.length, message);
+          assert(originalNumber === collection.length && originalNumber === this.collection.length, message);
+          _.forEach(models, function(model) {
+            assert(!collection.get(model.id), message + '. Failed model has id: ' + model.id);
+          });
           done()
-        });
+        }.bind(this));
         this.collection.set(JSON.parse(models), {validate: true})
       }.bind(this)
     )
@@ -48,9 +53,12 @@ describe('white box tests', function () {
       ,function (err, models) {
         models = JSON.parse(models);
         this.collection.set(models, {validate: true});
-        if (models.length === this.collection.length) {
-          done()
-        }
+        var message = 'All models must be added to collection';
+        assert(models.length === this.collection.length, message);
+        _.forEach(models, function(model) {
+          assert(this.collection.get(model.id), message + '. Failed model has id: ' + model.id);
+        }.bind(this));
+        done()
       }.bind(this)
     )
   })

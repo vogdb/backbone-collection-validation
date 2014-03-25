@@ -31,6 +31,7 @@ module.exports = function (grunt) {
             function(){Backbone = require('backbone')}
             ,function(){_ = require('backbone/node_modules/underscore')}
             ,function(){fs = require('fs')}
+            ,function(){assert = require('chai').assert;}
             ,'./dist/<%= pkg.name %>.js'
           ]
         }
