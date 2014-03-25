@@ -15,4 +15,4 @@ Backbone.Collection.prototype.set = function (models, options) {
     }
   }
   return parentResult;
-}
+};

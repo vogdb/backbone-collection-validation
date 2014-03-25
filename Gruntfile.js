@@ -49,12 +49,12 @@ module.exports = function (grunt) {
       }
     }
 
-  })
+  });
 
-  grunt.loadNpmTasks('grunt-contrib-concat')
-  grunt.loadNpmTasks('grunt-mocha-test')
-  grunt.loadNpmTasks('grunt-contrib-uglify')
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.registerTask('default', ['concat:advanced', 'mochaTest', 'uglify'])
 
-}
+};

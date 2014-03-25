@@ -36,4 +36,4 @@ Backbone.Collection.prototype.set = function (models, options) {
       return parentSet.apply(this, arguments);
     }
   }
-}
+};
